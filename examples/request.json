@@ -1,0 +1,9 @@
+{
+  "features": {
+    "enrollment_per_week": 20,
+    "kits_per_participant": 2,
+    "on_hand_kits": 15,
+    "lead_time_days": 14,
+    "expiry_days": 30
+  }
+}

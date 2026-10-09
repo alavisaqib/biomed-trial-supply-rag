@@ -1,0 +1,100 @@
+{
+  "slug": "biomed-trial-supply-rag",
+  "title": "Clinical-trial supply planner",
+  "domain": "Biomedical operations",
+  "problem": "Clinical-trial supply teams balance enrollment uncertainty, replenishment lead time and kit expiry. Spreadsheet-only planning makes stockout warnings and reorder assumptions hard to audit.",
+  "solution": "Trial-kit demand forecasting and reorder planning with random forests, explicit stockout controls, policy RAG, structured LLM review, MCP and containerized APIs.",
+  "description": "Trial-kit demand forecasting and reorder planning with random forests, explicit stockout controls, policy RAG, structured LLM review, MCP and containerized APIs.",
+  "task": "regression",
+  "target": "weekly_kit_demand",
+  "target_units": "kits per week",
+  "fields": [
+    {
+      "name": "enrollment_per_week",
+      "label": "Expected enrollment / week",
+      "min": 1,
+      "max": 150,
+      "integer": false
+    },
+    {
+      "name": "kits_per_participant",
+      "label": "Kits per participant",
+      "min": 1,
+      "max": 12,
+      "integer": true
+    },
+    {
+      "name": "on_hand_kits",
+      "label": "Available kits",
+      "min": 0,
+      "max": 10000,
+      "integer": true
+    },
+    {
+      "name": "lead_time_days",
+      "label": "Replenishment lead time (days)",
+      "min": 1,
+      "max": 60,
+      "integer": true
+    },
+    {
+      "name": "expiry_days",
+      "label": "Days until kit expiry",
+      "min": 1,
+      "max": 365,
+      "integer": true
+    }
+  ],
+  "model_features": [
+    "enrollment_per_week",
+    "kits_per_participant"
+  ],
+  "retrieval_query": "trial supply kits inventory reorder expiry",
+  "scenarios": [
+    {
+      "name": "Adequate coverage",
+      "features": {
+        "enrollment_per_week": 10,
+        "kits_per_participant": 2,
+        "on_hand_kits": 300,
+        "lead_time_days": 14,
+        "expiry_days": 120
+      },
+      "expected_action": "monitor"
+    },
+    {
+      "name": "Reorder review",
+      "features": {
+        "enrollment_per_week": 10,
+        "kits_per_participant": 2,
+        "on_hand_kits": 65,
+        "lead_time_days": 14,
+        "expiry_days": 120
+      },
+      "expected_action": "review"
+    },
+    {
+      "name": "Stockout exposure",
+      "features": {
+        "enrollment_per_week": 20,
+        "kits_per_participant": 2,
+        "on_hand_kits": 15,
+        "lead_time_days": 14,
+        "expiry_days": 30
+      },
+      "expected_action": "escalate"
+    }
+  ],
+  "data_formula": "Poisson enrollment times kits per participant, plus small Gaussian noise, generates weekly demand. Only enrollment and kits enter the ML model; inventory policy is calculated separately.",
+  "accent": "#136b63",
+  "topics": [
+    "ai-engineering",
+    "data-science",
+    "rag",
+    "llm",
+    "mcp",
+    "fastapi",
+    "docker",
+    "biomedical"
+  ]
+}

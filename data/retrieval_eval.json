@@ -1,0 +1,14 @@
+[
+  {
+    "query": "Trial supply inventory The fictional planning policy uses expected weekly enrollment multiplied by kits per participant as baseline weekly demand",
+    "source": "inventory.md"
+  },
+  {
+    "query": "Expiry and usable kits On-hand inventory is assumed to share one expiry date in this demonstration",
+    "source": "expiry.md"
+  },
+  {
+    "query": "Trial allocation review A planner reviews enrollment changes, kit usage assumptions, shipping capacity and authorized site allocations before approving a replenishment order",
+    "source": "allocation.md"
+  }
+]

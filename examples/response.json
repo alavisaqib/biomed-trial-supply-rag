@@ -1,0 +1,83 @@
+{
+  "project": "Clinical-trial supply planner",
+  "facts": {
+    "minimum_action": "escalate",
+    "summary": "Planning reorder point 160 kits; suggested replenishment 145 kits.",
+    "signals": {
+      "forecast_kits_per_week": 38.1,
+      "baseline_kits_per_week": 40.0,
+      "reorder_point_kits": 160,
+      "suggested_kits": 145
+    },
+    "next_steps": [
+      "Validate enrollment assumptions and lot-specific expiry.",
+      "Review suggested replenishment with the trial supply manager before ordering."
+    ]
+  },
+  "advice": {
+    "action": "escalate",
+    "rationale": "Planning reorder point 160 kits; suggested replenishment 145 kits.",
+    "citations": [
+      "inventory:3",
+      "expiry:3"
+    ],
+    "next_steps": [
+      "Validate enrollment assumptions and lot-specific expiry.",
+      "Review suggested replenishment with the trial supply manager before ordering."
+    ]
+  },
+  "guardrail_override": false,
+  "evidence": [
+    {
+      "id": "inventory:3",
+      "source": "inventory.md",
+      "text": "The fictional planning policy uses expected weekly enrollment multiplied by kits per participant as baseline weekly demand. Lead-time demand is weekly demand times lead-time days divided by 7. The reorder point includes an additional 14 days of safety coverage. A shortfall inside lead time requires escalation.",
+      "sha256": "9ca7ff08c4e8a1ef173e16218e06e372347b9c80dd40ce100bfa590ab2758ce3",
+      "score": 0.18845
+    },
+    {
+      "id": "expiry:3",
+      "source": "expiry.md",
+      "text": "On-hand inventory is assumed to share one expiry date in this demonstration. If expiry is inside the replenishment lead time, escalate for review even when quantity appears sufficient. Confirm lot-specific usable quantities, quarantine status and expiry in the source inventory system.",
+      "sha256": "3cf190ef7642e7c5dfcc3642a1d95914dacd28b2f45fd905eb4c9da737485e4a",
+      "score": 0.14702
+    },
+    {
+      "id": "allocation:3",
+      "source": "allocation.md",
+      "text": "A planner reviews enrollment changes, kit usage assumptions, shipping capacity and authorized site allocations before approving a replenishment order. The suggested reorder quantity is a planning aid; this service neither allocates participant treatment nor creates an order.",
+      "sha256": "8f94457be62c20d0f52247fc62180c5441a6d2416217a06200fe36088b6816b9",
+      "score": 0.12936
+    }
+  ],
+  "usage": {
+    "provider": "demo",
+    "model": "deterministic-evidence-template",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "prompt_budget_units": 2975
+  },
+  "optimization": {
+    "naive_prompt_units": 4156,
+    "packed_prompt_units": 2975,
+    "reduction_pct": 28.4,
+    "measurement": "UTF-8 text byte upper bound plus framing; not billed tokens"
+  },
+  "corpus_version": "a385225ce4f69e24e920b75f87f434221b04ecef484c661b9dede0e0da48fd1e",
+  "code_version": "93b5431ea53995aec75f52b2932ec67436f324acf8be0d9131e8a0315907cf66",
+  "features": {
+    "enrollment_per_week": 20.0,
+    "kits_per_participant": 2.0,
+    "on_hand_kits": 15.0,
+    "lead_time_days": 14.0,
+    "expiry_days": 30.0
+  },
+  "human_review_required": true,
+  "run_id": "b75dec42-cc57-46e4-a5b8-860b6074436b",
+  "cache_hit": true,
+  "current_request_tokens": {
+    "input": 0,
+    "output": 0
+  },
+  "latency_ms": 2.59
+}

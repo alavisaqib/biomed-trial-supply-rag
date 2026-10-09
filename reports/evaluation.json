@@ -1,0 +1,57 @@
+{
+  "model": {
+    "task": "regression",
+    "target": "weekly_kit_demand",
+    "units": "kits per week",
+    "train_rows": 600,
+    "test_rows": 200,
+    "seed": 42,
+    "data": "synthetic; not evidence of real-world performance",
+    "mae": 20.8267,
+    "mean_baseline_mae": 126.9329,
+    "residual_p90": 50.3014
+  },
+  "decision_scenarios": [
+    {
+      "scenario": "Adequate coverage",
+      "expected": "monitor",
+      "actual": "monitor",
+      "pass": true,
+      "prompt_reduction_pct": 28.5
+    },
+    {
+      "scenario": "Reorder review",
+      "expected": "review",
+      "actual": "review",
+      "pass": true,
+      "prompt_reduction_pct": 28.5
+    },
+    {
+      "scenario": "Stockout exposure",
+      "expected": "escalate",
+      "actual": "escalate",
+      "pass": true,
+      "prompt_reduction_pct": 28.4
+    }
+  ],
+  "retrieval": [
+    {
+      "query": "Trial supply inventory The fictional planning policy uses expected weekly enrollment multiplied by kits per participant as baseline weekly demand",
+      "expected_source": "inventory.md",
+      "hit_at_4": true
+    },
+    {
+      "query": "Expiry and usable kits On-hand inventory is assumed to share one expiry date in this demonstration",
+      "expected_source": "expiry.md",
+      "hit_at_4": true
+    },
+    {
+      "query": "Trial allocation review A planner reviews enrollment changes, kit usage assumptions, shipping capacity and authorized site allocations before approving a replenishment order",
+      "expected_source": "allocation.md",
+      "hit_at_4": true
+    }
+  ],
+  "retrieval_hit_rate": 1.0,
+  "live_llm_tested": false,
+  "notes": "Synthetic demonstration metrics. No real-world accuracy, cost savings or production validation claimed."
+}
